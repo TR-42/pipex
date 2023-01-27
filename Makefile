@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kfujita <kfujita@student.42.fr>            +#+  +:+       +#+         #
+#    By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 22:05:10 by kfujita           #+#    #+#              #
-#    Updated: 2023/01/26 22:05:18 by kfujita          ###   ########.fr        #
+#    Updated: 2023/01/28 07:13:38 by kfujita          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,17 +33,17 @@ CC		=	cc
 all:	MAKE_BEFORE $(NAME)
 
 ifdef WITH_BONUS
-$(NAME):	$(LIBFT) $(OBJS)
-else
 $(NAME):	$(LIBFT) $(OBJS_BONUS)
+else
+$(NAME):	$(LIBFT) $(OBJS)
 endif
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $^
 
 MAKE_BEFORE:
 ifdef WITH_BONUS
-	@if [ -f "$(NAME)" ] && [ "$(shell nm $(NAME) | grep _bonus)" = "" ]; then rm -f $(NAME) ; fi;
+	@if [ -f "$(NAME)" ] && [ "`nm $(NAME) | grep _bonus`" = "" ]; then rm -f $(NAME) ; fi;
 else
-	@if [ -f "$(NAME)" ] && [ "$(shell nm $(NAME) | grep _bonus)" != "" ]; then rm -f $(NAME) ; fi;
+	@if [ -f "$(NAME)" ] && [ "`nm $(NAME) | grep _bonus`" != "" ]; then rm -f $(NAME) ; fi;
 endif
 
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
