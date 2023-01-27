@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mem.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: kfujita <kfujita@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 23:39:01 by kfujita           #+#    #+#             */
-/*   Updated: 2022/04/25 23:39:51 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/01/28 00:41:54 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,8 @@ int		ft_memcmp(const void *s1, const void *s2, size_t n);
 
 // Libft-02 (Libc functions)
 void	*ft_calloc(size_t count, size_t size);
+
+// orig
+void	*ft_calloc_nofill(size_t count, size_t size);
 
 #endif

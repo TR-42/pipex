@@ -6,7 +6,7 @@
 #    By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/19 06:23:32 by kfujita           #+#    #+#              #
-#    Updated: 2022/04/26 00:29:53 by kfujita          ###   ########.fr        #
+#    Updated: 2023/01/28 01:33:55 by kfujita          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,6 +80,14 @@ SRCS	= \
 	ft_strndup.c \
 	ft_strnlen.c \
 	get_numstr_base.c \
+\
+	vect_at.c \
+	vect_dispose.c \
+	vect_init.c \
+	vect_push_back.c \
+	vect_remove.c \
+	vect_reserve.c \
+	vect_set.c \
 
 FT_IS_DIR	=	./ft_is
 FT_MATH_DIR	=	./ft_math
@@ -89,12 +97,13 @@ PRINTF_DIR	=	./ft_printf
 FT_PUT_DIR	=	./ft_put
 STR_DIR		=	./ft_string
 FT_TO_DIR	=	./ft_to
+FT_VECT_DIR	=	./ft_vect
 
 OBJ_DIR	=	./obj
 OBJS	=	$(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 DEPS	=	$(addprefix $(OBJ_DIR)/, $(SRCS:.c=.d))
 
-VPATH	=	$(FT_IS_DIR):$(FT_MATH_DIR):$(FT_MEM_DIR):$(SRCS04_DIR):$(PRINTF_DIR):$(FT_PUT_DIR):$(STR_DIR):$(FT_TO_DIR)
+VPATH	=	$(FT_IS_DIR):$(FT_MATH_DIR):$(FT_MEM_DIR):$(SRCS04_DIR):$(PRINTF_DIR):$(FT_PUT_DIR):$(STR_DIR):$(FT_TO_DIR):$(FT_VECT_DIR)
 
 CFLAGS	=	-Wall -Wextra -Werror -MMD
 

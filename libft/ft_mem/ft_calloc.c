@@ -6,16 +6,15 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 03:15:08 by kfujita           #+#    #+#             */
-/*   Updated: 2022/04/25 23:41:35 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/01/28 01:05:47 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_mem.h"
 #include <stdlib.h>
 
-void	*ft_calloc(size_t count, size_t size)
+void	*ft_calloc_nofill(size_t count, size_t size)
 {
-	void	*p_ret;
 	size_t	bytes_to_allocate;
 
 	bytes_to_allocate = count * size;
@@ -24,8 +23,15 @@ void	*ft_calloc(size_t count, size_t size)
 		return (NULL);
 	if (bytes_to_allocate <= 0)
 		bytes_to_allocate = 1;
-	p_ret = malloc(bytes_to_allocate);
+	return (malloc(bytes_to_allocate));
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	void	*p_ret;
+
+	p_ret = ft_calloc_nofill(count, size);
 	if (p_ret != NULL)
-		ft_bzero(p_ret, bytes_to_allocate);
+		ft_bzero(p_ret, count * size);
 	return (p_ret);
 }
