@@ -1,5 +1,6 @@
 *[Tt]ester/
 .DS_Store
+pipex
 
 # Prerequisites
 *.d
