@@ -14,6 +14,9 @@ NAME	=	pipex
 
 SRC_DIR	=	./srcs
 SRCS	=\
+	env_util.c \
+	main.c \
+	print_error.c \
 
 SRCS_BONUS	=\
 
