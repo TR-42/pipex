@@ -6,11 +6,12 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 06:42:05 by kfujita           #+#    #+#             */
-/*   Updated: 2023/01/30 13:59:38 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/01/30 16:09:26 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/env_util.h"
+#include "../libft/ft_string/ft_string.h"
 
 #include <stdbool.h>
 #include <stddef.h>
@@ -47,4 +48,14 @@ static const char	*is_this_requested_env(const char *envp, const char *name)
 		return (envp + 1);
 	else
 		return (NULL);
+}
+
+char	**get_path_in_env(const char *envp[])
+{
+	const char	*path;
+
+	path = get_env_value(envp, "PATH");
+	if (path == NULL)
+		return (NULL);
+	return (ft_split(path, ':'));
 }
