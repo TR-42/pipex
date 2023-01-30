@@ -6,22 +6,29 @@
 #    By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 22:05:10 by kfujita           #+#    #+#              #
-#    Updated: 2023/01/28 07:13:38 by kfujita          ###   ########.fr        #
+#    Updated: 2023/01/30 14:02:11 by kfujita          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	pipex
 
 SRC_DIR	=	./srcs
-SRCS	=\
+SRC_MAIN = main.c
+
+SRCS_NOMAIN	=\
 	env_util.c \
-	main.c \
+	parse_cmd.c \
 	print_error.c \
+
+SRCS	=\
+	$(SRC_MAIN)\
+	$(SRCS_NOMAIN)
 
 SRCS_BONUS	=\
 
 OBJ_DIR	=	./obj
 OBJS	=	$(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
+OBJS_NOMAIN	=	$(addprefix $(OBJ_DIR)/, $(SRCS_NOMAIN:.c=.o))
 OBJS_BONUS	=	$(addprefix $(OBJ_DIR)/, $(SRCS_BONUS:.c=.o))
 
 LIBFT_DIR	=	./libft
@@ -58,6 +65,9 @@ $(LIBFT):
 
 bonus:
 	make WITH_BONUS=1
+
+test_parse_cmd:	$(LIBFT) $(OBJS_NOMAIN) ./.tests/parse_cmd.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $^
 
 clean:
 	$(LIBFT_MAKE) clean
