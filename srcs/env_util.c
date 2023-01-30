@@ -6,13 +6,14 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 06:42:05 by kfujita           #+#    #+#             */
-/*   Updated: 2023/01/28 07:16:36 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/01/30 13:59:38 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/env_util.h"
 
 #include <stdbool.h>
+#include <stddef.h>
 
 static const char	*is_this_requested_env(const char *envp, const char *name);
 

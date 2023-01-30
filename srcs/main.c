@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 22:45:11 by kfujita           #+#    #+#             */
-/*   Updated: 2023/01/28 07:16:07 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/01/30 13:58:35 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "../headers/print_error.h"
 #include "../headers/env_util.h"
 #include "../libft/ft_printf/ft_printf.h"
+#include <stddef.h>
 
 int	main(int argc, const char *argv[], const char *envp[])
 {
