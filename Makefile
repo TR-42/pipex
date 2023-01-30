@@ -6,7 +6,7 @@
 #    By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 22:05:10 by kfujita           #+#    #+#              #
-#    Updated: 2023/01/30 14:02:11 by kfujita          ###   ########.fr        #
+#    Updated: 2023/01/30 16:09:51 by kfujita          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRC_MAIN = main.c
 
 SRCS_NOMAIN	=\
 	env_util.c \
+	filectrl_tools.c \
 	parse_cmd.c \
 	print_error.c \
 
