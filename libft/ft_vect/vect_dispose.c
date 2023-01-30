@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 01:26:20 by kfujita           #+#    #+#             */
-/*   Updated: 2023/01/28 01:34:38 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/01/30 14:21:52 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,14 @@ void	vect_dispose_each(t_vect *vect, void (*disposer)(void *))
 		while (pos < vect->len)
 			disposer(vect_at(vect, pos++));
 	vect_dispose(vect);
+}
+
+static void	ptrarr_disposer(void *ptr)
+{
+	free(*((void **)ptr));
+}
+
+void	vect_dispose_ptrarr(t_vect *vect)
+{
+	vect_dispose_each(vect, ptrarr_disposer);
 }

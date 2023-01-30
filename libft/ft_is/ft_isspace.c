@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vect_init.c                                        :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/28 00:06:47 by kfujita           #+#    #+#             */
-/*   Updated: 2023/01/30 14:14:44 by kfujita          ###   ########.fr       */
+/*   Created: 2023/01/30 12:56:27 by kfujita           #+#    #+#             */
+/*   Updated: 2023/01/30 13:01:49 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_vect.h"
-#include "../ft_mem/ft_mem.h"
+#include "ft_is.h"
 
-t_vect	vect_init(size_t cap, size_t elemsize)
+int	ft_isspace(int c)
 {
-	t_vect	ret;
+	unsigned char	uc;
 
-	ret.p = ft_calloc_nofill(cap, elemsize);
-	if (ret.p != NULL)
-	{
-		ret.cap = cap;
-		ret.len = 0;
-		ret.elemsize = elemsize;
-	}
-	return (ret);
+	uc = (unsigned char)c;
+	return (
+		uc == CHAR_HTAB
+		|| uc == CHAR_LF
+		|| uc == CHAR_VTAB
+		|| uc == CHAR_FF
+		|| uc == CHAR_CR
+		|| uc == CHAR_WS
+	);
 }

@@ -6,7 +6,7 @@
 #    By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/19 06:23:32 by kfujita           #+#    #+#              #
-#    Updated: 2023/01/28 01:33:55 by kfujita          ###   ########.fr        #
+#    Updated: 2023/01/30 13:03:02 by kfujita          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRCS	= \
 	ft_isascii.c \
 	ft_isupper.c \
 	ft_islower.c \
+	ft_isspace.c \
 \
 	ft_lstnew.c \
 	ft_lstadd_front.c \

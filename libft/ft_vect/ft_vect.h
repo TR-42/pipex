@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 21:28:26 by kfujita           #+#    #+#             */
-/*   Updated: 2023/01/28 01:35:23 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/01/30 14:22:00 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ bool	vect_remove(t_vect *vect, size_t index);
 
 void	vect_dispose(t_vect *vect);
 void	vect_dispose_each(t_vect *vect, void (*disposer)(void *));
+void	vect_dispose_ptrarr(t_vect *vect);
 
 #endif
