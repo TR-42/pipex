@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 22:59:04 by kfujita           #+#    #+#             */
-/*   Updated: 2023/01/30 15:06:22 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/01/31 13:48:13 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_vect	parse_cmd(const char *cmd)
 	}
 	append_segment_or_exit(&ret, &segment);
 	vect_dispose(&segment);
+	vect_push_back(&ret, &(segment.p), NULL);
 	return (ret);
 }
 
