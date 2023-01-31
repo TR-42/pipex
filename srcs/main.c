@@ -14,18 +14,10 @@
 #include "../headers/print_error.h"
 #include "../headers/filectrl_tools.h"
 #include "../headers/env_util.h"
-#include "../libft/ft_printf/ft_printf.h"
 #include <stddef.h>
 #include <stdlib.h>
 
-static void	_test(const char *fname, char **path_arr)
-{
-	char	*tmp;
-
-	tmp = chk_and_get_fullpath(fname, (const char **)path_arr);
-	ft_printf("%s: '%s'\n", fname, tmp);
-	free(tmp);
-}
+static void	free_ptr_arr(void **ptr_arr);
 
 int	main(int argc, const char *argv[], const char *envp[])
 {
@@ -56,4 +48,14 @@ int	main(int argc, const char *argv[], const char *envp[])
 	}
 	free(path_arr[i]);
 	return (0);
+}
+
+static void	free_ptr_arr(void **ptr_arr)
+{
+	size_t	i;
+
+	i = 0;
+	while (ptr_arr[i] != NULL)
+		free(ptr_arr[i++]);
+	free(ptr_arr);
 }
