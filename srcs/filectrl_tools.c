@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 15:18:27 by kfujita           #+#    #+#             */
-/*   Updated: 2023/01/30 16:28:49 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/01/30 16:51:11 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,12 @@ char	*chk_and_get_fullpath(const char *given_path, const char **env_path)
 {
 	char	*path;
 
-	if (given_path == NULL || env_path == NULL || *given_path == '\0')
+	if (given_path == NULL || *given_path == '\0')
 		return (NULL);
-	if (given_path[0] == '/' || given_path[0] == '.')
+	else if (given_path[0] == '/' || given_path[0] == '.')
 		path = ft_strdup(given_path);
+	else if (env_path == NULL)
+		return (NULL);
 	else
 	{
 		while (*env_path != NULL)
@@ -58,7 +60,6 @@ char	*chk_and_get_fullpath(const char *given_path, const char **env_path)
 			if (access(path, X_OK) == 0)
 				return (path);
 			free(path);
-			path = NULL;
 			env_path++;
 		}
 		return (NULL);
