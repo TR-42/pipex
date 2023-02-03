@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 00:04:40 by kfujita           #+#    #+#             */
-/*   Updated: 2022/04/26 00:12:06 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/01/30 17:12:07 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,6 @@ bool	parse_opt_ptr(char fmt, va_list *args, t_fmt *p_ret);
 bool	is_valid_conv_char(char c);
 bool	is_valid_flag_char(char c);
 
-int		print_all(t_list *list);
+int		print_all(int fd, t_list *list);
 
 #endif

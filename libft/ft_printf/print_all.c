@@ -6,16 +6,13 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 01:13:22 by kfujita           #+#    #+#             */
-/*   Updated: 2022/04/26 00:22:45 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/01/30 16:56:38 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "ft_printf_local.h"
 #include "../ft_math/ft_math.h"
-
-// STDOUT_FILENO
-#define DST_FD (1)
 
 static int	calc_pad_zero_len(t_fmt *fmt, int *pad_len, int *zero_len)
 {
@@ -40,7 +37,7 @@ static int	calc_pad_zero_len(t_fmt *fmt, int *pad_len, int *zero_len)
 	return (expected_print_len);
 }
 
-static int	print_buf(t_fmt *fmt)
+static int	print_buf(int dstfd, t_fmt *fmt)
 {
 	int	pad_len;
 	int	zero_len;
@@ -48,17 +45,17 @@ static int	print_buf(t_fmt *fmt)
 
 	print_len = calc_pad_zero_len(fmt, &pad_len, &zero_len);
 	while (!(fmt->f_minus) && pad_len-- > 0)
-		write(DST_FD, " ", 1);
-	write(DST_FD, fmt->header, fmt->head_len);
+		write(dstfd, " ", 1);
+	write(dstfd, fmt->header, fmt->head_len);
 	while (zero_len-- > 0)
-		write(DST_FD, "0", 1);
-	write(DST_FD, fmt->data.str_buf, fmt->str_len);
+		write(dstfd, "0", 1);
+	write(dstfd, fmt->data.str_buf, fmt->str_len);
 	while (fmt->f_minus && pad_len-- > 0)
-		write(DST_FD, " ", 1);
+		write(dstfd, " ", 1);
 	return (print_len);
 }
 
-static int	print_char(t_fmt *fmt)
+static int	print_char(int dstfd, t_fmt *fmt)
 {
 	int		pad_len;
 
@@ -66,21 +63,21 @@ static int	print_char(t_fmt *fmt)
 	if (fmt->f_minus || !(fmt->f_zero))
 	{
 		while (!(fmt->f_minus) && pad_len-- > 0)
-			write(DST_FD, " ", 1);
-		write(DST_FD, fmt->data.str_buf, 1);
+			write(dstfd, " ", 1);
+		write(dstfd, fmt->data.str_buf, 1);
 		while (fmt->f_minus && pad_len-- > 0)
-			write(DST_FD, " ", 1);
+			write(dstfd, " ", 1);
 	}
 	else
 	{
 		while (pad_len-- > 0)
-			write(DST_FD, "0", 1);
-		write(DST_FD, fmt->data.str_buf, 1);
+			write(dstfd, "0", 1);
+		write(dstfd, fmt->data.str_buf, 1);
 	}
 	return (ft_max(fmt->str_len + fmt->head_len, fmt->min_len));
 }
 
-static int	print_str(t_fmt *fmt)
+static int	print_str(int dstfd, t_fmt *fmt)
 {
 	int	pad_len;
 	int	print_len;
@@ -92,21 +89,21 @@ static int	print_str(t_fmt *fmt)
 	if (fmt->f_minus || !(fmt->f_zero))
 	{
 		while (!(fmt->f_minus) && pad_len-- > 0)
-			write(DST_FD, " ", 1);
-		write(DST_FD, fmt->data.str, print_len);
+			write(dstfd, " ", 1);
+		write(dstfd, fmt->data.str, print_len);
 		while (fmt->f_minus && pad_len-- > 0)
-			write(DST_FD, " ", 1);
+			write(dstfd, " ", 1);
 	}
 	else
 	{
 		while (pad_len-- > 0)
-			write(DST_FD, "0", 1);
-		write(DST_FD, fmt->data.str, print_len);
+			write(dstfd, "0", 1);
+		write(dstfd, fmt->data.str, print_len);
 	}
 	return (ft_max(print_len, fmt->min_len));
 }
 
-int	print_all(t_list *list)
+int	print_all(int dstfd, t_list *list)
 {
 	int		written_count;
 	int		tmp;
@@ -118,11 +115,11 @@ int	print_all(t_list *list)
 		data = list->content;
 		tmp = 0;
 		if (data->type == STR)
-			tmp = print_str(data);
+			tmp = print_str(dstfd, data);
 		else if (data->type == CHAR)
-			tmp = print_char(data);
+			tmp = print_char(dstfd, data);
 		else
-			tmp = print_buf(data);
+			tmp = print_buf(dstfd, data);
 		written_count += tmp;
 		list = list->next;
 	}

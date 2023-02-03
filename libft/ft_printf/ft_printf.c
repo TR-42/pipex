@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 21:58:25 by kfujita           #+#    #+#             */
-/*   Updated: 2022/04/24 04:39:55 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/01/30 17:11:45 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,43 @@
 int	ft_printf(const char *format, ...)
 {
 	va_list	args;
+	int		written_count;
+
+	va_start(args, format);
+	written_count = ft_vprintf(format, args);
+	va_end(args);
+	return (written_count);
+}
+
+int	ft_dprintf(int fd, const char *format, ...)
+{
+	va_list	args;
+	int		written_count;
+
+	va_start(args, format);
+	written_count = ft_vdprintf(fd, format, args);
+	va_end(args);
+	return (written_count);
+}
+
+int	ft_vprintf(const char *format, va_list args)
+{
+	return (ft_vdprintf(STDOUT_FILENO, format, args));
+}
+
+int	ft_vdprintf(int fd, const char *format, va_list args)
+{
 	t_list	*list;
 	int		written_count;
 
 	if (*format == '\0')
 		return (0);
 	else if (format[0] != '%' && format[1] == '\0')
-		return (write(STDOUT_FILENO, format, 1));
-	va_start(args, format);
+		return (write(fd, format, 1));
 	list = parse_format(format, &args);
-	va_end(args);
 	if (list == NULL)
 		return (-1);
-	written_count = print_all(list);
+	written_count = print_all(fd, list);
 	ft_lstclear(&list, free);
 	return (written_count);
 }
