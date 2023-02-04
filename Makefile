@@ -20,10 +20,18 @@ SRCS_NOMAIN	=\
 	filectrl_tools.c \
 	parse_cmd.c \
 	print_error.c \
+	get_ch_proc_info_arr.c \
+
+SRCS_MANDATORY_ONLY	=\
+	is_here_doc_mode.c \
+
+SRCS_BONUS_ONLY	=\
+	is_here_doc_mode_bonus.c \
 
 SRCS	=\
 	$(SRC_MAIN)\
-	$(SRCS_NOMAIN)
+	$(SRCS_MANDATORY_ONLY)\
+	$(SRCS_NOMAIN)\
 
 SRCS_BONUS	=\
 
