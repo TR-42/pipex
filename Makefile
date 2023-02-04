@@ -6,7 +6,7 @@
 #    By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 22:05:10 by kfujita           #+#    #+#              #
-#    Updated: 2023/01/30 16:09:51 by kfujita          ###   ########.fr        #
+#    Updated: 2023/02/04 19:37:43 by kfujita          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,8 @@ SRCS_NOMAIN	=\
 	parse_cmd.c \
 	print_error.c \
 	get_ch_proc_info_arr.c \
+	child_process.c \
+	child_process_first_last.c \
 
 SRCS_MANDATORY_ONLY	=\
 	is_here_doc_mode.c \
