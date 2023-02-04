@@ -34,6 +34,9 @@ SRCS	=\
 	$(SRCS_NOMAIN)\
 
 SRCS_BONUS	=\
+	$(SRC_MAIN)\
+	$(SRCS_BONUS_ONLY)\
+	$(SRCS_NOMAIN)\
 
 OBJ_DIR	=	./obj
 OBJS	=	$(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
