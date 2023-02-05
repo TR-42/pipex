@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:26:17 by kfujita           #+#    #+#             */
-/*   Updated: 2023/02/04 23:02:27 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/02/05 21:36:49 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void	pipe_fork_exec(t_ch_proc_info *info_arr, size_t index, size_t count)
 		else
 			exec_command(info_arr, index);
 	}
+	else if ((index + 1) != count)
+		close(pipefd[PIPEFD_FROM_THIS]);
 }
 
 // no return
