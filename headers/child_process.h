@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:28:07 by kfujita           #+#    #+#             */
-/*   Updated: 2023/02/04 19:17:27 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/02/04 23:02:02 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_ch_proc_info
 	const char		*fname_out;
 	int				fd_to_this;
 	int				fd_from_this;
+	pid_t			pid;
 	const char		**path_arr;
 	const char		*arg_str;
 	const char		**envp;

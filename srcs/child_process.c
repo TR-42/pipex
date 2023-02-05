@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:26:17 by kfujita           #+#    #+#             */
-/*   Updated: 2023/02/04 19:18:46 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/02/04 23:02:27 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,28 +38,27 @@
 void	pipe_fork_exec(t_ch_proc_info *info_arr, size_t index, size_t count)
 {
 	int		pipefd[2];
-	pid_t	pid;
 
 	if ((index + 1) != count)
 	{
 		if (pipe(pipefd) < 0)
 			perror_exit("Create Pipe");
 		info_arr[index].fd_from_this = pipefd[PIPEFD_FROM_THIS];
-		info_arr[index + 1].fd_to_this = pipefd[PIPEFD_TO_NEXT];
-		pid = fork();
-		if (pid < 0)
-			perror_exit("fork");
-		else if (pid == PID_FORKED)
-		{
-			close(pipefd[PIPEFD_TO_NEXT]);
-			if (index == 0)
-				exec_command_first(info_arr, index);
-			else
-				exec_command(info_arr, index);
-		}
+		info_arr[index + 1].fd_to_this = pipefd[PIPEFD_FROM_PREV];
 	}
-	else
-		exec_command_last(info_arr, index);
+	info_arr[index].pid = fork();
+	if (info_arr[index].pid < 0)
+		perror_exit("fork");
+	else if (info_arr[index].pid == PID_FORKED)
+	{
+		if ((index + 1) == count)
+			exec_command_last(info_arr, index);
+		close(pipefd[PIPEFD_FROM_PREV]);
+		if (index == 0)
+			exec_command_first(info_arr, index);
+		else
+			exec_command(info_arr, index);
+	}
 }
 
 // no return
