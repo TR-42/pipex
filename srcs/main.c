@@ -33,8 +33,6 @@ int	main(int argc, const char *argv[], char *const envp[])
 	if (proc_info_arr == NULL)
 		perror_exit("malloc for proc_info_arr");
 	proc_info_arr_len = argc - 3;
-	if (proc_info_arr[0].is_here_doc)
-		proc_info_arr_len -= 1;
 	i = 0;
 	while (i < proc_info_arr_len)
 		pipe_fork_exec(proc_info_arr, i++, proc_info_arr_len);

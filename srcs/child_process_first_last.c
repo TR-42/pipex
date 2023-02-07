@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../headers/child_process.h"
+#include "../headers/get_ch_proc_info_arr.h"
 
 // - open
 // - O_RDONLY / O_WRONLY / O_CLOEXEC
@@ -30,7 +31,7 @@ void	exec_command_last(t_ch_proc_info *info_arr, size_t index)
 	int	oflag;
 
 	oflag = O_WRONLY | O_CREAT | O_CLOEXEC;
-	if (info_arr[index].is_here_doc)
+	if (is_here_doc_mode(info_arr[index].fname_in))
 		oflag = oflag | O_APPEND;
 	info_arr[index].fd_from_this = open(info_arr[index].fname_out, oflag, 0644);
 	if (index == 0)

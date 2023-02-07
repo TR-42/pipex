@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:28:07 by kfujita           #+#    #+#             */
-/*   Updated: 2023/02/04 23:02:02 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/02/08 00:57:52 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 
 typedef struct s_ch_proc_info
 {
-	bool			is_here_doc;
 	const char		*fname_in;
 	const char		*fname_out;
 	int				fd_to_this;
