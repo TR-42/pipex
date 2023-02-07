@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   print_help.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/26 22:45:53 by kfujita           #+#    #+#             */
-/*   Updated: 2023/02/08 01:37:15 by kfujita          ###   ########.fr       */
+/*   Created: 2023/02/08 01:31:32 by kfujita           #+#    #+#             */
+/*   Updated: 2023/02/08 01:34:32 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PRINT_HELP_H
+# define PRINT_HELP_H
 
-# define REQUIRED_ARGC 5
+void	print_help_exit(void);
 
 #endif

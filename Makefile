@@ -6,7 +6,7 @@
 #    By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 22:05:10 by kfujita           #+#    #+#              #
-#    Updated: 2023/02/04 19:37:43 by kfujita          ###   ########.fr        #
+#    Updated: 2023/02/08 01:43:57 by kfujita          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,9 +26,11 @@ SRCS_NOMAIN	=\
 
 SRCS_MANDATORY_ONLY	=\
 	is_here_doc_mode.c \
+	print_help.c \
 
 SRCS_BONUS_ONLY	=\
 	is_here_doc_mode_bonus.c \
+	print_help_bonus.c \
 
 SRCS	=\
 	$(SRC_MAIN)\

@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 22:45:11 by kfujita           #+#    #+#             */
-/*   Updated: 2023/02/08 01:23:32 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/02/08 01:34:45 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "../headers/print_error.h"
 #include "../headers/get_ch_proc_info_arr.h"
 #include "../headers/child_process.h"
+#include "../headers/print_help.h"
 
 #include "../libft/ft_string/ft_string.h"
 #include "../libft/gnl/get_next_line.h"
@@ -85,7 +86,7 @@ int	main(int argc, const char *argv[], char *const envp[])
 	bool			exit_with_fail;
 
 	if (argc < REQUIRED_ARGC)
-		print_err_exit(ERR_HELP_MSG, ERR_HELP_EXITNUM);
+		print_help_exit();
 	proc_info_arr = get_ch_proc_info_arr(argc, argv, envp);
 	if (proc_info_arr == NULL)
 		perror_exit("malloc for proc_info_arr");
