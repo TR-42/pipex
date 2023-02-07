@@ -6,23 +6,62 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 11:00:53 by kfujita           #+#    #+#             */
-/*   Updated: 2023/02/04 19:14:08 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/02/08 01:24:11 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/child_process.h"
 #include "../headers/get_ch_proc_info_arr.h"
+#include "../headers/print_error.h"
+
+#include "../libft/ft_math/ft_math.h"
+#include "../libft/ft_string/ft_string.h"
 
 // - open
 // - O_RDONLY / O_WRONLY / O_CLOEXEC
 #include <fcntl.h>
 
+// - exit
+// - EXIT_SUCCESS
+#include <stdlib.h>
+
+// - INT32_MAX
+#include <stdint.h>
+
+// - write
+// - size_t / ssize_t
+#include <unistd.h>
+
 // no return
 // here_docでは、forkで別プロセスを作成し、そこでgnlをかける
 void	exec_command_first(t_ch_proc_info *info_arr, size_t index)
 {
-	info_arr[index].fd_to_this = open(info_arr->fname_in, O_RDONLY | O_CLOEXEC);
-	exec_command(info_arr, index);
+	size_t	str_len;
+	ssize_t	written_len;
+	char	*str;
+
+	if (!is_here_doc_mode(info_arr[index].fname_in))
+	{
+		info_arr[index].fd_to_this
+			= open(info_arr[index].fname_in, O_RDONLY | O_CLOEXEC);
+		exec_command(info_arr, index);
+		return ;
+	}
+	str = (char *)info_arr[index].arg_str;
+	str_len = ft_strlen(str);
+	while (0 < str_len)
+	{
+		written_len = write(info_arr[index].fd_from_this,
+				str, ft_maxp(INT32_MAX, str_len));
+		if (written_len <= 0)
+			perror_exit("write heredoc text");
+		str_len -= (size_t)written_len;
+		str += written_len;
+	}
+	free((void *)info_arr[index].arg_str);
+	free((void *)info_arr[index].path_arr);
+	free(info_arr);
+	exit(EXIT_SUCCESS);
 }
 
 // no return
