@@ -6,14 +6,14 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 01:10:41 by kfujita           #+#    #+#             */
-/*   Updated: 2023/01/28 01:36:08 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/02/06 23:58:11 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_vect.h"
 #include "../ft_mem/ft_mem.h"
 
-bool	vect_set(t_vect *vect, void *elem, size_t index)
+bool	vect_set(t_vect *vect, const void *elem, size_t index)
 {
 	unsigned char	*p;
 

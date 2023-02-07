@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 13:37:46 by kfujita           #+#    #+#             */
-/*   Updated: 2022/04/26 00:29:25 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/02/06 18:16:33 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@
 // ft_to*
 # include "ft_to/ft_to.h"
 
-// Additional Functions (from libc)
-
-// Additional Functions (original)
+// Get Next Line
+# include "gnl/get_next_line.h"
 
 #endif

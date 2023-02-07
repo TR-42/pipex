@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 21:28:26 by kfujita           #+#    #+#             */
-/*   Updated: 2023/01/30 14:22:00 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/02/06 23:57:54 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,12 @@ bool	vect_reserve(t_vect *vect, size_t newcap);
 
 void	*vect_at(const t_vect *vect, size_t index);
 
-bool	vect_push_back(t_vect *vect, void *elem, size_t *written_index);
+bool	vect_append_str(t_vect *vect, const char *value, size_t count);
+bool	vect_append_range(t_vect *vect, const void *value, size_t count);
 
-bool	vect_set(t_vect *vect, void *elem, size_t index);
+bool	vect_push_back(t_vect *vect, const void *elem, size_t *written_index);
+
+bool	vect_set(t_vect *vect, const void *elem, size_t index);
 
 bool	vect_remove(t_vect *vect, size_t index);
 

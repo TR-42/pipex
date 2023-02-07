@@ -6,21 +6,21 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 03:15:08 by kfujita           #+#    #+#             */
-/*   Updated: 2023/01/28 01:05:47 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/02/06 23:14:48 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_mem.h"
+#include "../ft_math/ft_math.h"
 #include <stdlib.h>
 
 void	*ft_calloc_nofill(size_t count, size_t size)
 {
 	size_t	bytes_to_allocate;
 
-	bytes_to_allocate = count * size;
-	if (bytes_to_allocate != 0
-		&& (bytes_to_allocate < count || bytes_to_allocate < size))
+	if (!can_mulp(count, size))
 		return (NULL);
+	bytes_to_allocate = count * size;
 	if (bytes_to_allocate <= 0)
 		bytes_to_allocate = 1;
 	return (malloc(bytes_to_allocate));
