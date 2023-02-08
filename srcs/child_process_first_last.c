@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 11:00:53 by kfujita           #+#    #+#             */
-/*   Updated: 2023/02/08 01:24:11 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/02/08 23:36:43 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,12 @@
 #include <unistd.h>
 
 // no return
-// here_docでは、forkで別プロセスを作成し、そこでgnlをかける
-void	exec_command_first(t_ch_proc_info *info_arr, size_t index)
+static void	write_heredoc(t_ch_proc_info *info_arr, size_t index)
 {
 	size_t	str_len;
 	ssize_t	written_len;
 	char	*str;
 
-	if (!is_here_doc_mode(info_arr[index].fname_in))
-	{
-		info_arr[index].fd_to_this
-			= open(info_arr[index].fname_in, O_RDONLY | O_CLOEXEC);
-		exec_command(info_arr, index);
-		return ;
-	}
 	str = (char *)info_arr[index].arg_str;
 	str_len = ft_strlen(str);
 	while (0 < str_len)
@@ -63,6 +55,19 @@ void	exec_command_first(t_ch_proc_info *info_arr, size_t index)
 	free((void *)info_arr[index].path_arr);
 	free(info_arr);
 	exit(EXIT_SUCCESS);
+}
+
+// no return
+void	exec_command_first(t_ch_proc_info *info_arr, size_t index)
+{
+	if (!is_here_doc_mode(info_arr[index].fname_in))
+	{
+		info_arr[index].fd_to_this
+			= open(info_arr[index].fname_in, O_RDONLY | O_CLOEXEC);
+		exec_command(info_arr, index);
+	}
+	else
+		write_heredoc(info_arr, index);
 }
 
 // no return
