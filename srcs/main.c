@@ -6,14 +6,14 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 22:45:11 by kfujita           #+#    #+#             */
-/*   Updated: 2023/02/08 23:34:04 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/02/09 00:25:28 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/pipex.h"
 #include "../headers/print_error.h"
 #include "../headers/get_ch_proc_info_arr.h"
 #include "../headers/child_process.h"
+#include "../headers/is_argc_valid.h"
 #include "../headers/print_help.h"
 
 #include "../libft/ft_string/ft_string.h"
@@ -85,7 +85,7 @@ int	main(int argc, const char *argv[], char *const envp[])
 	size_t			proc_info_arr_len;
 	bool			exit_with_fail;
 
-	if (argc < REQUIRED_ARGC)
+	if (!is_argc_valid(argc))
 		print_help_exit();
 	proc_info_arr = get_ch_proc_info_arr(argc, argv, envp);
 	if (proc_info_arr == NULL)

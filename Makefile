@@ -6,7 +6,7 @@
 #    By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 22:05:10 by kfujita           #+#    #+#              #
-#    Updated: 2023/02/08 23:53:54 by kfujita          ###   ########.fr        #
+#    Updated: 2023/02/09 00:29:42 by kfujita          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,10 +25,12 @@ SRCS_NOMAIN	=\
 	child_process_first_last.c \
 
 SRCS_MANDATORY_ONLY	=\
+	is_argc_valid.c \
 	is_here_doc_mode.c \
 	print_help.c \
 
 SRCS_BONUS_ONLY	=\
+	is_argc_valid_bonus.c \
 	is_here_doc_mode_bonus.c \
 	print_help_bonus.c \
 
@@ -90,7 +92,7 @@ test_parse_cmd:	$(LIBFT) $(OBJS_NOMAIN) ./.tests/parse_cmd.c
 
 clean:
 	$(LIBFT_MAKE) clean
-	rm -f $(OBJS) $(OBJS_BONUS)
+	rm -f $(OBJS) $(OBJS_BONUS) $(DEPS) $(DEPS_BONUS)
 	rm -d $(OBJ_DIR) || exit 0
 
 fclean:	clean
