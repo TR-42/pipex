@@ -6,7 +6,7 @@
 #    By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 22:05:10 by kfujita           #+#    #+#              #
-#    Updated: 2023/02/08 01:43:57 by kfujita          ###   ########.fr        #
+#    Updated: 2023/02/08 23:53:54 by kfujita          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,11 +47,14 @@ OBJS	=	$(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 OBJS_NOMAIN	=	$(addprefix $(OBJ_DIR)/, $(SRCS_NOMAIN:.c=.o))
 OBJS_BONUS	=	$(addprefix $(OBJ_DIR)/, $(SRCS_BONUS:.c=.o))
 
+DEPS	=	$(addprefix $(OBJ_DIR)/, $(SRCS:.c=.d))
+DEPS_BONUS	=	$(addprefix $(OBJ_DIR)/, $(SRCS_BONUS:.c=.d))
+
 LIBFT_DIR	=	./libft
 LIBFT	=	$(LIBFT_DIR)/libft.a
 LIBFT_MAKE	=	make -C $(LIBFT_DIR)
 
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror -MMD
 INCLUDES	=	-I $(LIBFT_DIR) -I ./headers
 
 CC		=	cc
@@ -74,7 +77,7 @@ endif
 
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
-	$(CC) $(CFLAGS) $(INCLUDES) -c -o $@ $^
+	$(CC) $(CFLAGS) $(INCLUDES) -c -o $@ $<
 
 $(LIBFT):
 	$(LIBFT_MAKE)
@@ -95,5 +98,7 @@ fclean:	clean
 	rm -f $(NAME)
 
 re:	fclean all
+
+-include $(DEPS) $(DEPS_BONUS)
 
 .PHONY:	clean MAKE_BEFORE bonus
