@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:26:17 by kfujita           #+#    #+#             */
-/*   Updated: 2023/02/05 21:36:49 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/02/09 00:42:49 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,12 @@ void	pipe_fork_exec(t_ch_proc_info *info_arr, size_t index, size_t count)
 		close(pipefd[PIPEFD_FROM_THIS]);
 }
 
+static void	dup2_and_close(int fd_dup_from, int fd_dup_to)
+{
+	dup2(fd_dup_from, fd_dup_to);
+	close(fd_dup_from);
+}
+
 // no return
 void	exec_command(t_ch_proc_info *info_arr, size_t index)
 {
@@ -82,10 +88,8 @@ void	exec_command(t_ch_proc_info *info_arr, size_t index)
 			"command not found: %s\n", *argv);
 		exit(EXIT_FAILURE);
 	}
-	dup2(info_arr[index].fd_to_this, STDIN_FILENO);
-	close(info_arr[index].fd_to_this);
-	dup2(info_arr[index].fd_from_this, STDOUT_FILENO);
-	close(info_arr[index].fd_from_this);
+	dup2_and_close(info_arr[index].fd_to_this, STDIN_FILENO);
+	dup2_and_close(info_arr[index].fd_from_this, STDOUT_FILENO);
 	free(info_arr);
 	execve(cmd_path, argv, (char *const *)envp);
 	perror(cmd_path);
