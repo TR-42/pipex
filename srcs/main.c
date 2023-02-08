@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 22:45:11 by kfujita           #+#    #+#             */
-/*   Updated: 2023/02/08 23:33:12 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/02/08 23:34:04 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-static const char	g_prompt_str[] = "heredoc> ";
+static const char	g_prompt_str[] = "> ";
 
 static bool	is_same_line(const char *a, const char *b)
 {
