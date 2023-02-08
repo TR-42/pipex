@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 22:45:11 by kfujita           #+#    #+#             */
-/*   Updated: 2023/02/08 01:34:45 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/02/08 23:33:12 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	set_here_doc_str_if_needed(t_ch_proc_info *proc_info)
 		gnl_result = get_next_line(&state);
 		if (gnl_result == NULL || is_same_line(gnl_result, proc_info->arg_str))
 			break ;
-		vect_append_str(&str, (char *)str.p, ft_strlen((char *)str.p));
+		vect_append_str(&str, gnl_result, ft_strlen(gnl_result));
 		free(gnl_result);
 	}
 	free(gnl_result);
