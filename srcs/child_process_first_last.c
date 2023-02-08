@@ -58,6 +58,7 @@ void	exec_command_first(t_ch_proc_info *info_arr, size_t index)
 		str_len -= (size_t)written_len;
 		str += written_len;
 	}
+	close(info_arr[index].fd_from_this);
 	free((void *)info_arr[index].arg_str);
 	free((void *)info_arr[index].path_arr);
 	free(info_arr);
