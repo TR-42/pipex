@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 22:45:11 by kfujita           #+#    #+#             */
-/*   Updated: 2023/02/09 00:25:28 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/02/09 00:37:47 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,6 @@ int	main(int argc, const char *argv[], char *const envp[])
 		exit_with_fail = (exit_with_fail || WIFSIGNALED(status)
 				|| (WIFEXITED(status) && WEXITSTATUS(status) != 0));
 	}
+	free(proc_info_arr);
 	return (exit_with_fail & 0x01);
 }

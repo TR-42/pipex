@@ -93,6 +93,7 @@ void	exec_command(t_ch_proc_info *info_arr, size_t index)
 	free(info_arr);
 	execve(cmd_path, argv, (char *const *)envp);
 	perror(cmd_path);
+	free(cmd_path);
 	vect_dispose_ptrarr(&cmd);
 	exit(EXIT_FAILURE);
 }
