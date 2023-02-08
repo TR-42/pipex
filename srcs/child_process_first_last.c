@@ -52,7 +52,7 @@ void	exec_command_first(t_ch_proc_info *info_arr, size_t index)
 	while (0 < str_len)
 	{
 		written_len = write(info_arr[index].fd_from_this,
-				str, ft_maxp(INT32_MAX, str_len));
+				str, ft_minp(INT32_MAX, str_len));
 		if (written_len <= 0)
 			perror_exit("write heredoc text");
 		str_len -= (size_t)written_len;
