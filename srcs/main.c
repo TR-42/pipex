@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 22:45:11 by kfujita           #+#    #+#             */
-/*   Updated: 2023/02/09 00:37:47 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/02/10 14:59:14 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int	main(int argc, const char *argv[], char *const envp[])
 	int				status;
 	size_t			i;
 	size_t			proc_info_arr_len;
-	bool			exit_with_fail;
 
 	if (!is_argc_valid(argc))
 		print_help_exit();
@@ -96,12 +95,13 @@ int	main(int argc, const char *argv[], char *const envp[])
 	while (i < proc_info_arr_len)
 		pipe_fork_exec(proc_info_arr, i++, proc_info_arr_len);
 	i = 0;
+	status = 0;
 	while (i < proc_info_arr_len)
-	{
-		waitpid(proc_info_arr[i++].pid, &status, 0);
-		exit_with_fail = (exit_with_fail || WIFSIGNALED(status)
-				|| (WIFEXITED(status) && WEXITSTATUS(status) != 0));
-	}
+		if (waitpid(proc_info_arr[i++].pid, &status, 0) < 0)
+			perror("pipex/waitpid");
 	free(proc_info_arr);
-	return (exit_with_fail & 0x01);
+	if (WIFEXITED(status))
+		return (EXIT_SUCCESS);
+	else
+		return (WEXITSTATUS(status));
 }
