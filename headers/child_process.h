@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:28:07 by kfujita           #+#    #+#             */
-/*   Updated: 2023/02/08 00:57:52 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/02/10 15:01:12 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_ch_proc_info
 	const char		**envp;
 }	t_ch_proc_info;
 
+void	dispose_proc_info_arr(t_ch_proc_info *info_arr);
 void	pipe_fork_exec(t_ch_proc_info *info_arr, size_t index, size_t count);
 void	exec_command(t_ch_proc_info *info_arr, size_t index);
 void	exec_command_first(t_ch_proc_info *info_arr, size_t index);
