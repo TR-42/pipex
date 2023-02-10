@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:26:17 by kfujita           #+#    #+#             */
-/*   Updated: 2023/02/10 13:26:19 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/02/10 13:26:55 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void	pipe_fork_exec(t_ch_proc_info *info_arr, size_t index, size_t count)
 	}
 	if ((index + 1) != count)
 		close(info_arr[index].fd_from_this);
+	if (index != 0)
+		close(info_arr[index].fd_to_this);
 }
 
 static void	dup2_and_close(int fd_dup_from, int fd_dup_to)
