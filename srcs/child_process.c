@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:26:17 by kfujita           #+#    #+#             */
-/*   Updated: 2023/02/09 00:42:49 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/02/10 13:26:19 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,22 @@
 
 #define PID_FORKED (0)
 
-// no return
-void	pipe_fork_exec(t_ch_proc_info *info_arr, size_t index, size_t count)
+static void	create_pipe(t_ch_proc_info *info_arr, size_t index, size_t count)
 {
 	int		pipefd[2];
 
-	if ((index + 1) != count)
-	{
-		if (pipe(pipefd) < 0)
-			perror_exit("Create Pipe");
-		info_arr[index].fd_from_this = pipefd[PIPEFD_FROM_THIS];
-		info_arr[index + 1].fd_to_this = pipefd[PIPEFD_FROM_PREV];
-	}
+	if ((index + 1) == count)
+		return ;
+	if (pipe(pipefd) < 0)
+		perror_exit("Create Pipe");
+	info_arr[index].fd_from_this = pipefd[PIPEFD_FROM_THIS];
+	info_arr[index + 1].fd_to_this = pipefd[PIPEFD_FROM_PREV];
+}
+
+// no return
+void	pipe_fork_exec(t_ch_proc_info *info_arr, size_t index, size_t count)
+{
+	create_pipe(info_arr, index, count);
 	info_arr[index].pid = fork();
 	if (info_arr[index].pid < 0)
 		perror_exit("fork");
@@ -53,14 +57,14 @@ void	pipe_fork_exec(t_ch_proc_info *info_arr, size_t index, size_t count)
 	{
 		if ((index + 1) == count)
 			exec_command_last(info_arr, index);
-		close(pipefd[PIPEFD_FROM_PREV]);
+		close(info_arr[index + 1].fd_to_this);
 		if (index == 0)
 			exec_command_first(info_arr, index);
 		else
 			exec_command(info_arr, index);
 	}
-	else if ((index + 1) != count)
-		close(pipefd[PIPEFD_FROM_THIS]);
+	if ((index + 1) != count)
+		close(info_arr[index].fd_from_this);
 }
 
 static void	dup2_and_close(int fd_dup_from, int fd_dup_to)
