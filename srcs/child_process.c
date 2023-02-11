@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:26:17 by kfujita           #+#    #+#             */
-/*   Updated: 2023/02/10 15:02:03 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/02/11 23:36:16 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 #include <fcntl.h>
 
 #define PID_FORKED (0)
+
+const char	*g_errstr_no_cmd = "command not found: %s\n";
 
 void	dispose_proc_info_arr(t_ch_proc_info *info_arr)
 {
@@ -91,24 +93,25 @@ void	exec_command(t_ch_proc_info *info_arr, size_t index)
 {
 	t_vect		cmd;
 	char		*cmd_path;
-	char *const	*argv;
-	const char	**envp;
+	int			tmp;
+	char *const	*envp;
 
-	envp = info_arr[index].envp;
+	envp = (char *const *)(info_arr[index].envp);
 	cmd = parse_cmd(info_arr[index].arg_str);
-	argv = (char *const *)cmd.p;
-	cmd_path = chk_and_get_fullpath(*argv, info_arr[index].path_arr);
-	if (cmd_path == NULL)
+	tmp = chk_and_get_fpath(*(char **)(cmd.p), info_arr->path_arr, &cmd_path);
+	if (tmp != CHK_GET_PATH_ERR_OK)
 	{
-		ft_dprintf(STDERR_FILENO,
-			"command not found: %s\n", *argv);
+		if (tmp == CHK_GET_PATH_ERR_NOCMD)
+			ft_dprintf(STDERR_FILENO, g_errstr_no_cmd, *(char **)(cmd.p));
+		else
+			perror(*(char **)(cmd.p));
 		dispose_proc_info_arr(info_arr);
 		exit(EXIT_FAILURE);
 	}
 	dup2_and_close(info_arr[index].fd_to_this, STDIN_FILENO);
 	dup2_and_close(info_arr[index].fd_from_this, STDOUT_FILENO);
 	dispose_proc_info_arr(info_arr);
-	execve(cmd_path, argv, (char *const *)envp);
+	execve(cmd_path, (char *const *)(cmd.p), envp);
 	perror(cmd_path);
 	free(cmd_path);
 	vect_dispose_ptrarr(&cmd);

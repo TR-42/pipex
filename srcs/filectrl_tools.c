@@ -6,12 +6,14 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 15:18:27 by kfujita           #+#    #+#             */
-/*   Updated: 2023/01/30 16:51:11 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/02/11 23:36:11 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/ft_string/ft_string.h"
 #include "../libft/ft_mem/ft_mem.h"
+
+#include "../headers/filectrl_tools.h"
 
 #include <fcntl.h>
 #include <unistd.h>
@@ -42,31 +44,29 @@ static char	*join_path(const char *path1, const char *path2)
 	return (ret);
 }
 
-char	*chk_and_get_fullpath(const char *given_path, const char **env_path)
+int	chk_and_get_fpath(const char *given_path, const char **env_path, char **dst)
 {
-	char	*path;
-
-	if (given_path == NULL || *given_path == '\0')
-		return (NULL);
-	else if (given_path[0] == '/' || given_path[0] == '.')
-		path = ft_strdup(given_path);
+	if (given_path == NULL)
+		return (CHK_GET_PATH_ERR_NOCMD);
+	else if (*given_path == '\0' || ft_strchr(given_path, '/') != NULL)
+	{
+		if (access(given_path, X_OK) != 0)
+			return (CHK_GET_PATH_ERR_NOFILE);
+		*dst = ft_strdup(given_path);
+		return (CHK_GET_PATH_ERR_OK);
+	}
 	else if (env_path == NULL)
-		return (NULL);
+		return (CHK_GET_PATH_ERR_NOCMD);
 	else
 	{
 		while (*env_path != NULL)
 		{
-			path = join_path(*env_path, given_path);
-			if (access(path, X_OK) == 0)
-				return (path);
-			free(path);
+			*dst = join_path(*env_path, given_path);
+			if (access(*dst, X_OK) == 0)
+				return (CHK_GET_PATH_ERR_OK);
+			free(*dst);
 			env_path++;
 		}
-		return (NULL);
+		return (CHK_GET_PATH_ERR_NOCMD);
 	}
-	if (access(path, X_OK) == 0)
-		return (path);
-	perror(__func__);
-	free(path);
-	return (NULL);
 }
