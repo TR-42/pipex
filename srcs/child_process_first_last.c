@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 11:00:53 by kfujita           #+#    #+#             */
-/*   Updated: 2023/02/08 23:36:43 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/02/11 22:38:10 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@
 
 // - INT32_MAX
 #include <stdint.h>
+
+// - perror
+#include <stdio.h>
 
 // - write
 // - size_t / ssize_t
@@ -64,6 +67,13 @@ void	exec_command_first(t_ch_proc_info *info_arr, size_t index)
 	{
 		info_arr[index].fd_to_this
 			= open(info_arr[index].fname_in, O_RDONLY | O_CLOEXEC);
+		if (info_arr[index].fd_to_this <= 0)
+		{
+			perror("pipex: open input file");
+			close(info_arr[index].fd_from_this);
+			dispose_proc_info_arr(info_arr);
+			exit(EXIT_FAILURE);
+		}
 		exec_command(info_arr, index);
 	}
 	else
@@ -79,6 +89,15 @@ void	exec_command_last(t_ch_proc_info *info_arr, size_t index)
 	if (is_here_doc_mode(info_arr[index].fname_in))
 		oflag = oflag | O_APPEND;
 	info_arr[index].fd_from_this = open(info_arr[index].fname_out, oflag, 0644);
+	if (info_arr[index].fd_from_this <= 0)
+	{
+		perror("pipex: open output file");
+		if (index != 0)
+			close(info_arr[index].fd_to_this);
+		close(info_arr[index].fd_from_this);
+		dispose_proc_info_arr(info_arr);
+		exit(EXIT_FAILURE);
+	}
 	if (index == 0)
 		exec_command_first(info_arr, index);
 	else
