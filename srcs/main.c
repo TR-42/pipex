@@ -59,10 +59,10 @@ static void	set_here_doc_str_if_needed(t_ch_proc_info *proc_info)
 		return ;
 	state = gen_gnl_state(STDIN_FILENO, 256);
 	if (state.buf == NULL)
-		perror_exit("gen_gnl_state");
+		perror_dispose_exit("gen_gnl_state", proc_info);
 	str = vect_init(256, sizeof(char));
 	if (str.p == NULL)
-		perror_exit("heredoc/vect_init");
+		perror_dispose_exit("heredoc/vect_init", proc_info);
 	while (true)
 	{
 		write(STDOUT_FILENO, g_prompt_str, sizeof(g_prompt_str) - 1);
@@ -99,7 +99,7 @@ int	main(int argc, const char *argv[], char *const envp[])
 	while (i < proc_info_arr_len)
 		if (waitpid(proc_info_arr[i++].pid, &status, 0) < 0)
 			perror("pipex/waitpid");
-	free(proc_info_arr);
+	dispose_proc_info_arr(proc_info_arr);
 	if (WIFEXITED(status))
 		return (EXIT_SUCCESS);
 	else
