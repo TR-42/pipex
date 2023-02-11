@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 22:45:11 by kfujita           #+#    #+#             */
-/*   Updated: 2023/02/10 14:59:14 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/02/11 22:19:26 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,20 @@ static void	set_here_doc_str_if_needed(t_ch_proc_info *proc_info)
 	proc_info->arg_str = str.p;
 }
 
+static void	unlink_if_not_append(t_ch_proc_info *proc_info_arr)
+{
+	if (is_here_doc_mode(proc_info_arr[0].fname_in))
+		return ;
+	if (access(proc_info_arr[0].fname_out, F_OK) == 0
+		&& unlink(proc_info_arr[0].fname_out) != 0)
+		perror("unlink");
+}
+
 int	main(int argc, const char *argv[], char *const envp[])
 {
 	t_ch_proc_info	*proc_info_arr;
 	int				status;
-	size_t			i;
-	size_t			proc_info_arr_len;
+	int				i;
 
 	if (!is_argc_valid(argc))
 		print_help_exit();
@@ -90,13 +98,13 @@ int	main(int argc, const char *argv[], char *const envp[])
 	if (proc_info_arr == NULL)
 		perror_exit("malloc for proc_info_arr");
 	set_here_doc_str_if_needed(proc_info_arr);
-	proc_info_arr_len = argc - 3;
+	unlink_if_not_append(proc_info_arr);
 	i = 0;
-	while (i < proc_info_arr_len)
-		pipe_fork_exec(proc_info_arr, i++, proc_info_arr_len);
+	while (i < (argc - 3))
+		pipe_fork_exec(proc_info_arr, i++, (size_t)(argc - 3));
 	i = 0;
 	status = 0;
-	while (i < proc_info_arr_len)
+	while (i < (argc - 3))
 		if (waitpid(proc_info_arr[i++].pid, &status, 0) < 0)
 			perror("pipex/waitpid");
 	dispose_proc_info_arr(proc_info_arr);
