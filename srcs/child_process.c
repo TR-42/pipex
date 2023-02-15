@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:26:17 by kfujita           #+#    #+#             */
-/*   Updated: 2023/02/11 23:36:16 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/02/16 04:30:22 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,15 @@ const char	*g_errstr_no_cmd = "command not found: %s\n";
 
 void	dispose_proc_info_arr(t_ch_proc_info *info_arr)
 {
+	size_t	i;
+
 	if (info_arr == NULL)
 		return ;
 	if (is_here_doc_mode(info_arr[0].fname_in))
 		free((void *)(info_arr[0].arg_str));
+	i = 0;
+	while (info_arr->path_arr[i] != NULL)
+		free((void *)(info_arr->path_arr[i++]));
 	free(info_arr->path_arr);
 	free(info_arr);
 }
