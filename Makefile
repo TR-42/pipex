@@ -6,7 +6,7 @@
 #    By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 22:05:10 by kfujita           #+#    #+#              #
-#    Updated: 2023/02/09 00:29:42 by kfujita          ###   ########.fr        #
+#    Updated: 2023/02/16 01:49:48 by kfujita          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ LIBFT_DIR	=	./libft
 LIBFT	=	$(LIBFT_DIR)/libft.a
 LIBFT_MAKE	=	make -C $(LIBFT_DIR)
 
-CFLAGS	=	-Wall -Wextra -Werror -MMD
+CFLAGS	=	-Wall -Wextra -Werror -MMD -MP
 INCLUDES	=	-I $(LIBFT_DIR) -I ./headers
 
 CC		=	cc
