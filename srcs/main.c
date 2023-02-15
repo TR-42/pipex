@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 22:45:11 by kfujita           #+#    #+#             */
-/*   Updated: 2023/02/11 22:19:26 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/02/16 04:32:59 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,3 +113,12 @@ int	main(int argc, const char *argv[], char *const envp[])
 	else
 		return (WEXITSTATUS(status));
 }
+
+#if DEBUG
+
+__attribute__((destructor))
+static void	destructor(void) {
+	system("leaks -q pipex");
+}
+
+#endif
