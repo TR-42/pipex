@@ -6,7 +6,7 @@
 #    By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 22:05:10 by kfujita           #+#    #+#              #
-#    Updated: 2023/02/16 01:49:48 by kfujita          ###   ########.fr        #
+#    Updated: 2023/02/16 04:36:39 by kfujita          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ LIBFT_DIR	=	./libft
 LIBFT	=	$(LIBFT_DIR)/libft.a
 LIBFT_MAKE	=	make -C $(LIBFT_DIR)
 
-CFLAGS	=	-Wall -Wextra -Werror -MMD -MP
+override CFLAGS	+=	-Wall -Wextra -Werror -MMD -MP
 INCLUDES	=	-I $(LIBFT_DIR) -I ./headers
 
 CC		=	cc
@@ -87,13 +87,18 @@ $(LIBFT):
 bonus:
 	make WITH_BONUS=1
 
+debug: clean_local
+	make bonus CFLAGS=-DDEBUG
+
 test_parse_cmd:	$(LIBFT) $(OBJS_NOMAIN) ./.tests/parse_cmd.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $^
 
-clean:
-	$(LIBFT_MAKE) clean
+clean_local:
 	rm -f $(OBJS) $(OBJS_BONUS) $(DEPS) $(DEPS_BONUS)
 	rm -d $(OBJ_DIR) || exit 0
+
+clean: clean_local
+	$(LIBFT_MAKE) clean
 
 fclean:	clean
 	$(LIBFT_MAKE) fclean
@@ -103,4 +108,4 @@ re:	fclean all
 
 -include $(DEPS) $(DEPS_BONUS)
 
-.PHONY:	clean MAKE_BEFORE bonus
+.PHONY:	clean_local MAKE_BEFORE bonus debug
