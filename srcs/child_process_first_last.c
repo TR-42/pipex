@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 11:00:53 by kfujita           #+#    #+#             */
-/*   Updated: 2023/02/11 22:38:10 by kfujita          ###   ########.fr       */
+/*   Updated: 2023/02/20 23:41:01 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ void	exec_command_last(t_ch_proc_info *info_arr, size_t index)
 	oflag = O_WRONLY | O_CREAT | O_CLOEXEC;
 	if (is_here_doc_mode(info_arr[index].fname_in))
 		oflag = oflag | O_APPEND;
+	else
+		oflag = oflag | O_TRUNC;
 	info_arr[index].fd_from_this = open(info_arr[index].fname_out, oflag, 0644);
 	if (info_arr[index].fd_from_this <= 0)
 	{
